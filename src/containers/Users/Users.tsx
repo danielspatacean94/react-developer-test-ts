@@ -93,7 +93,6 @@ const Users : React.FC<any> = props => {
   };
 
   const handleSort = (property: string) => {
-    console.log(`handleSort`, property);
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);

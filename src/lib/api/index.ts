@@ -5,7 +5,6 @@ const PAGE_SIZE = 3;
 
 const resolveOrRejectCollection = (collection: any[]) => {
   let timesCalled = 0;
-  console.log(`timesCalled ${timesCalled}`);
   return () => {
     return new Promise<{ code: number, data: any[], limit: number, offset: number, total: number } | { code: number, error: string, data: any }>((resolve, reject) => {
       const id = setTimeout(() => {

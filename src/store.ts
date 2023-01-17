@@ -3,14 +3,19 @@ import {logger}           from 'redux-logger';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
+const getMiddleware = () => {
+  if(process.env.NODE_ENV === 'production') {
+    return [thunk];
+  }
+
+  return [thunk, logger];
+};
+
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [
-    thunk, // so that we can dispatch functions => more cleaner code.
-    logger,
-  ],
+  middleware: getMiddleware(),
   devTools: process.env.NODE_ENV !== 'production'
-});
+})
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>
