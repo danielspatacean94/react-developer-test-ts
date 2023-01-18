@@ -1,13 +1,20 @@
 import React, {
   useState,
 } from 'react';
+import {
+  connect,
+} from 'react-redux';
+
+import { useDispatch } from 'react-redux'
 
 import {
   Provider,
 } from 'react-redux';
 import {
   Box,
+  Button,
   Container,
+  CircularProgress,
   Tab,
   Tabs,
 } from '@material-ui/core';
@@ -33,7 +40,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const App = () => {
+const App : React.FC<any> = props => {
   const classes       = useStyles();
   const [tab, setTab] = useState(0);
 
@@ -66,5 +73,7 @@ export const App = () => {
     </Provider>
   );
 };
+
+
 
 export default App;
