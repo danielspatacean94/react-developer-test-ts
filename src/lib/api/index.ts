@@ -19,7 +19,7 @@ const resolveOrRejectCollection = (collection: any[]) => {
         if (timesCalled % 2 === 0) {
           return reject({
             code: 500,
-            error: 'Uknown error',
+            message: 'Unknown error',
           });
         }
 
@@ -38,10 +38,16 @@ const resolveOrRejectCollection = (collection: any[]) => {
 const getProjectsDiff = resolveOrRejectCollection(projectsDiff);
 const getUsersDiff = resolveOrRejectCollection(usersDiff);
 
-
 const exported = {
   getProjectsDiff,
   getUsersDiff,
+};
+
+export interface Entity {
+  timestamp: number;
+  id:        string;
+  oldValue:  string;
+  newValue:  string;
 };
 
 export default exported;

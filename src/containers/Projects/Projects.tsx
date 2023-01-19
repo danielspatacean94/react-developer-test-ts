@@ -2,35 +2,41 @@ import React, {
   useEffect,
 } from 'react';
 import {
-  connect,
+  useDispatch,
+  useSelector,
 } from 'react-redux';
+
 import {
   readProjects,
-} from '../../actions/projects';
+} from '../../reducers/projects.slice';
+import {
+  RootState,
+} from '../../reducers/rootReducer';
 
-import Entity      from '../../components/Entity/Entity';
-import {RootState} from '../../store';
+import Entity from '../../components/Entity/Entity';
 
 const Projects : React.FC<any> = props => {
-  const {dispatch, projects} = props;
+  const dispatch = useDispatch();
+
+  const { reading, readError, data } = useSelector(
+    (state: RootState) => {
+      return {
+        reading:   state.projects.reading,
+        readError: state.projects.readError,
+        data:      state.projects.data,
+      }
+    },
+  );
 
   useEffect(() => {
-    dispatch(readProjects());
+    dispatch<any>(readProjects());
   });
 
-  const onLoadMore = () => dispatch(readProjects({refresh: true}));
+  const onLoadMore = () => dispatch<any>(readProjects({refresh: true}));
 
-  return <Entity data={projects.data} reading={projects.reading} onLoadMore={onLoadMore} error={projects.readError} />
+  return <Entity data={data} reading={reading} onLoadMore={onLoadMore} error={readError} />
 };
 
-const mapStateToProps = (state: RootState) => {
-  const {
-    projects,
-  } = state;
 
-  return {
-    projects,
-  };
-};
 
-export default connect(mapStateToProps)(Projects);
+export default Projects;

@@ -29,6 +29,10 @@ import {
   formatDate,
 } from '../../lib/utils';
 
+import {
+  Entity,
+} from '../../lib/api';
+
 const useStyles = makeStyles(() => ({
   entityBox: {
     display: 'flex',
@@ -51,20 +55,13 @@ const headCells = [
   { id: 'newValue',  label: 'New Value'},
 ];
 
-interface dataItem {
-  timestamp: number;
-  id: string;
-  oldValue: string;
-  newValue: string;
-};
-
-const Entity : React.FC<any> = props => {
+const EntityComponent : React.FC<any> = props => {
   const {data, reading, error} = props;
   const classes = useStyles();
 
   const [order,      setOrder]      = useState('desc');
   const [orderBy,    setOrderBy]    = useState('timestamp');
-  const [dataSource, setDataSource] = useState<dataItem[]>(data);
+  const [dataSource, setDataSource] = useState<Entity[]>(data);
 
   useEffect(() => {
     const newData = _.map(data, (item: { timestamp: any; id: any; oldValue: any, newValue: any }) => ({
@@ -121,7 +118,7 @@ const Entity : React.FC<any> = props => {
 
   const renderError = () => {
     if(error) {
-      return <Typography className={classes.readError}>{error.error}</Typography>
+      return <Typography className={classes.readError}>{error}</Typography>
     }
   };
 
@@ -150,4 +147,4 @@ const Entity : React.FC<any> = props => {
 };
 
 
-export default Entity;
+export default EntityComponent;
